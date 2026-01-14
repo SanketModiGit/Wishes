@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Wishes</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background: #0a3d62; color: white; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 20px; backdrop-filter: blur(10px); }
+        .creative-container { position: relative; display: inline-block; width: 100%; }
+        .creative-img { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        #display-name { position: absolute; bottom: 20%; left: 0; width: 100%; font-size: 32px; font-weight: bold; color: #fff; text-shadow: 2px 2px 4px #000; text-align: center; }
+        input { padding: 12px; width: 80%; margin: 20px 0; border: none; border-radius: 25px; outline: none; }
+        button { background: #f39c12; color: white; padding: 12px 30px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; }
+        #share-section { margin-top: 20px; display: none; background: #27ae60; padding: 15px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="creative-container">
+            <img src="https://share.google/WvtDVxXU1Ch1BeOEZ" class="creative-img">
+            <div id="display-name"></div>
+        </div>
+        
+        <div id="input-area">
+            <p>Enter your name to see the magic:</p>
+            <input type="text" id="userName" placeholder="Type name here...">
+            <br>
+            <button onclick="updateName()">Create My Wish</button>
+        </div>
+
+        <div id="share-section">
+            <p>Link created! Copy and share with friends:</p>
+            <input type="text" id="finalLink" readonly style="color: black;">
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const nameInUrl = urlParams.get('name');
+        if (nameInUrl) {
+            document.getElementById('display-name').innerText = nameInUrl;
+            document.getElementById('input-area').style.display = 'none';
+        }
+
+        function updateName() {
+            const name = document.getElementById('userName').value;
+            if (name) {
+                const cleanUrl = window.location.href.split('?')[0];
+                const finalUrl = cleanUrl + "?name=" + encodeURIComponent(name);
+                document.getElementById('display-name').innerText = name;
+                document.getElementById('finalLink').value = finalUrl;
+                document.getElementById('share-section').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
